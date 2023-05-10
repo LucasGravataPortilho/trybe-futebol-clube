@@ -11,11 +11,11 @@ TeamsModel.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   teamName: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
 }, {
   underscored: true,
