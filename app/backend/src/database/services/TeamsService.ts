@@ -1,3 +1,4 @@
+import HttpException from '../httpException';
 import TeamsModel from '../models/TeamModel';
 
 class TeamsService {
@@ -12,7 +13,7 @@ class TeamsService {
     });
 
     if (!team) {
-      throw new Error('Time não encontrado');
+      throw new HttpException(404, 'Time não encontrado');
     }
     return team.toJSON();
   }

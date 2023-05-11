@@ -1,3 +1,4 @@
+import generateToken from '../auth';
 import HttpException from '../httpException';
 import UserModel from '../models/UserModel';
 
@@ -19,6 +20,8 @@ class UsersService {
     if (password !== user.password) {
       throw new HttpException(401, 'Invalid email or password');
     }
+
+    return generateToken(user.id);
   }
 }
 

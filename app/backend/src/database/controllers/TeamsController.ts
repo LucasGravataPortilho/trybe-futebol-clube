@@ -8,18 +8,10 @@ class TeamsController {
   }
 
   public static async findById(req: Request, res: Response) {
-    try {
-      const { id } = req.params;
-      const result = await TeamsService.findById(+id);
+    const { id } = req.params;
+    const result = await TeamsService.findById(+id);
 
-      if (!result) {
-        return res.status(404).json({ message: 'Time não encontrado' });
-      }
-
-      res.status(200).json(result);
-    } catch (err: any) {
-      return res.status(500).json({ message: 'time não encontrado' });
-    }
+    res.status(200).json(result);
   }
 }
 
