@@ -1,3 +1,4 @@
+import { compare } from 'bcryptjs';
 import generateToken from '../auth';
 import HttpException from '../httpException';
 import UserModel from '../models/UserModel';
@@ -17,7 +18,8 @@ class UsersService {
       throw new HttpException(401, 'Invalid email or password');
     }
 
-    if (password !== user.password) {
+    const comparePasswords = await compare(password, user.password);
+    if (!comparePasswords) {
       throw new HttpException(401, 'Invalid email or password');
     }
 
