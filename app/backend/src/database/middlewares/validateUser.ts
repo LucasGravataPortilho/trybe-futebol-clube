@@ -1,15 +1,13 @@
-import { NextFunction, Request, Response } from 'express';
+import HttpException from '../httpException';
+import { Login } from '../services/UsersService';
 
-const validateUser = (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
+const validateUser = ({ email, password }: Login): void => {
   const textEmail = /\S+@\S+\.\S+/;
   const passLimit = 6;
 
   if (!textEmail.test(email) || password.length < passLimit) {
-    return res.status(401).json({ message: 'Invalid email or password' });
+    throw new HttpException(401, 'Invalid email or password');
   }
-
-  next();
 };
 
 export default validateUser;
