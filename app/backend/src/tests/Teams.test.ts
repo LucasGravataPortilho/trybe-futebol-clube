@@ -19,17 +19,30 @@ describe('testes da seção Teams', () => {
     sinon.restore();
   })
 
-  // it('testando o metodo findAll', async () => {
-  //   const teams: TeamsModel[] = [new TeamsModel({ id: 1, teamName: 'Botafogo' })]
+  it('testando o metodo findAll', async () => {
+    const teams: TeamsModel[] = [new TeamsModel({ id: 1, teamName: 'Botafogo' })]
 
-  //   sinon.stub(TeamsModel, 'findAll').resolves(teams);
+    sinon.stub(TeamsModel, 'findAll').resolves(teams);
 
-  //   const teamsService = new TeamsService();
+    // const teamsService = new TeamsService();
 
-  //   const result = await teamsService.findAll();
+    const result = await TeamsService.findAll();
 
-  //   expect(result).to.be.deep.eq(teams);
-  //   expect(result.length).to.be.eq(1);
-  //   expect(result).to.be.an('array');
-  // });
+    expect(result).to.be.deep.eq(teams);
+    expect(result.length).to.be.eq(1);
+    expect(result).to.be.an('array');
+  });
+
+  it('testando o metodo findById', async () => {
+    const teams: TeamsModel = new TeamsModel({ id: 1, teamName: 'Botafogo' });
+
+    sinon.stub(TeamsModel, 'findOne').resolves(teams);
+
+    // const teamsService = new TeamsService();
+
+    const result = await TeamsService.findById(1);
+
+    expect(result).to.be.deep.eq(teams);
+    expect(result).to.be.an('object');
+  });
 });
