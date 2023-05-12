@@ -1,3 +1,4 @@
+import HttpException from '../httpException';
 import MatchesModel from '../models/MatchModel';
 import TeamsModel from '../models/TeamModel';
 
@@ -30,6 +31,18 @@ class MatchesService {
     }, {
       where: { id },
     });
+  }
+
+  public static async updateMatch(
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<void> {
+    const match = await MatchesModel.findByPk(id);
+    if (!match) throw new HttpException(400, 'Match not found');
+    match.homeTeamGoals = homeTeamGoals;
+    match.awayTeamGoals = awayTeamGoals;
+    match.save();
   }
 }
 
