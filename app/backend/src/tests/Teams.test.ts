@@ -19,12 +19,10 @@ describe('testes da seção Teams', () => {
     sinon.restore();
   })
 
-  it('testando o metodo findAll', async () => {
-    const teams: TeamsModel[] = [new TeamsModel({ id: 1, teamName: 'Botafogo' })]
+  it('testando o metodo findAll (service)', async () => {
+    const teams: TeamsModel[] = [new TeamsModel({ id: 1, teamName: 'Botafogo' })];
 
     sinon.stub(TeamsModel, 'findAll').resolves(teams);
-
-    // const teamsService = new TeamsService();
 
     const result = await TeamsService.findAll();
 
@@ -33,16 +31,38 @@ describe('testes da seção Teams', () => {
     expect(result).to.be.an('array');
   });
 
-  it('testando o metodo findById', async () => {
+  it('testando o metodo findById (service)', async () => {
     const teams: TeamsModel = new TeamsModel({ id: 1, teamName: 'Botafogo' });
 
     sinon.stub(TeamsModel, 'findOne').resolves(teams);
 
-    // const teamsService = new TeamsService();
-
     const result = await TeamsService.findById(1);
 
     expect(result).to.be.deep.eq(teams);
+    expect(result).to.be.an('object');
+  });
+
+  it('testando o metodo findAll (controller)', async () => {
+    const teams: TeamsModel[] = [new TeamsModel({ id: 1, teamName: 'Botafogo' })];
+
+    sinon.stub(TeamsModel, 'findAll').resolves(teams);
+
+    const result = await chai.request(app).get('/teams');
+
+    expect(result.body).to.be.deep.eq(teams);
+    expect(result.body).to.be.an('array');
+    expect(result).to.be.an('object');
+  });
+
+  it('testando o metodo findById (controller)', async () => {
+    const teams: TeamsModel = new TeamsModel({ id: 1, teamName: 'Botafogo' });
+
+    sinon.stub(TeamsModel, 'findOne').resolves(teams);
+
+    const result = await chai.request(app).get('/teams/1');
+
+    expect(result.body).to.be.deep.eq(teams);
+    expect(result.body).to.be.an('object');
     expect(result).to.be.an('object');
   });
 });
