@@ -25,6 +25,19 @@ class UsersService {
 
     return generateToken(user.id);
   }
+
+  public static async getUserRole(id: number) {
+    const user = await UserModel.findOne({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new HttpException(401, 'User not found');
+    }
+    console.log(user);
+
+    return user.role;
+  }
 }
 
 export default UsersService;

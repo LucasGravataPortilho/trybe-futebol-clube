@@ -11,6 +11,17 @@ class UserController {
       next(error);
     }
   }
+
+  public static async getUserRole(_req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = res.locals.token;
+      const userRole = await UsersService.getUserRole(id);
+
+      res.status(200).json({ role: userRole });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default UserController;
