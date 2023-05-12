@@ -44,6 +44,23 @@ class MatchesService {
     match.awayTeamGoals = awayTeamGoals;
     match.save();
   }
+
+  public static async create(
+    homeTeamId: number,
+    awayTeamId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<MatchesModel> {
+    const newMatch = await MatchesModel.create({
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true,
+    });
+
+    return newMatch;
+  }
 }
 
 export default MatchesService;
