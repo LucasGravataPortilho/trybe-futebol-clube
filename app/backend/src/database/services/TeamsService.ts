@@ -13,7 +13,7 @@ class TeamsService {
     });
 
     if (!team) {
-      throw new HttpException(404, 'Time não encontrado');
+      throw new HttpException(404, 'There is no team with such id!');
     }
     return team.toJSON();
   }
