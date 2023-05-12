@@ -7,6 +7,12 @@ class MatchesController {
     const result = await MatchesService.findAll(inProgress);
     res.status(200).json(result);
   }
+
+  public static async matchFinished(req: Request, res: Response) {
+    const { id } = req.params;
+    await MatchesService.matchFinish(+id);
+    res.status(200).json({ message: 'Finished' });
+  }
 }
 
 export default MatchesController;

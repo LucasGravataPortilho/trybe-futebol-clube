@@ -22,6 +22,15 @@ class MatchesService {
     if (inProgress === 'false') return matches.filter((m) => m.inProgress === false);
     return matches;
   }
+
+  public static async matchFinish(id: number): Promise<void> {
+    const match = await MatchesModel.findByPk(id);
+    await match?.update({
+      inProgress: false,
+    }, {
+      where: { id },
+    });
+  }
 }
 
 export default MatchesService;
