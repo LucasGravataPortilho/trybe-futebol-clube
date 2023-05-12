@@ -25,12 +25,16 @@ class MatchesController {
     }
   }
 
-  public static async createMatch(req: Request, res: Response) {
-    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
-    const newMatch = await MatchesService
-      .create(homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals);
+  public static async createMatch(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+      const newMatch = await MatchesService
+        .create(homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals);
 
-    res.status(201).json(newMatch);
+      res.status(201).json(newMatch);
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
