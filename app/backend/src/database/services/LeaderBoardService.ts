@@ -8,8 +8,8 @@ class LeaderBoardService extends LeaderBoard {
       include: [{ model: MatchesModel, as: 'homeTeam' }],
     });
 
-    const leaderBoard = new LeaderBoard();
-    return teams;
+    const leaderBoards = teams.map((team) => new LeaderBoard(team.teamName, team.homeTeam));
+    return leaderBoards;
   }
 }
 

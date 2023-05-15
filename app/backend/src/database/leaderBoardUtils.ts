@@ -1,4 +1,3 @@
-import ILeaderBoard from './interface/leaderBoard';
 import Match from './interface/match';
 
 class LeaderBoard {
@@ -13,7 +12,7 @@ class LeaderBoard {
   private goalsBalance: number;
   private efficiency: number;
 
-  constructor(name: string) {
+  constructor(name: string, matches?: Match[]) {
     this.name = name;
     this.totalPoints = 0;
     this.totalGames = 0;
@@ -24,6 +23,7 @@ class LeaderBoard {
     this.goalsOwn = 0;
     this.goalsBalance = 0;
     this.efficiency = 0;
+    this.homeTeamStats(matches);
   }
 
   private homeWin(homeTeamGoals: number, awayTeamGoals: number): void {
@@ -31,12 +31,14 @@ class LeaderBoard {
     this.goalsOwn += awayTeamGoals;
     this.totalPoints += 3;
     this.totalVictories += 1;
+    this.totalGames += 1;
   }
 
   private homeLose(homeTeamGoals: number, awayTeamGoals: number): void {
     this.goalsFavor += homeTeamGoals;
     this.goalsOwn += awayTeamGoals;
     this.totalLosses += 1;
+    this.totalGames += 1;
   }
 
   private homeTie(homeTeamGoals: number, awayTeamGoals: number): void {
@@ -44,6 +46,7 @@ class LeaderBoard {
     this.goalsOwn += awayTeamGoals;
     this.totalPoints += 1;
     this.totalDraws += 1;
+    this.totalGames += 1;
   }
 
   private homeTeamPoints(matches: Match[]): void {
@@ -54,24 +57,12 @@ class LeaderBoard {
     });
   }
 
-  public homeTeamStats(matches: Match[]): ILeaderBoard {
-    this.homeTeamPoints(matches);
-    this.goalsBalance = this.goalsFavor - this.goalsOwn;
-    this.totalGames += 1;
-    this.efficiency = +((this.totalPoints / (this.totalGames * 3)) * 100).toFixed(2);
-
-    return {
-      name: this.name,
-      totalPoints: this.totalPoints,
-      totalGames: this.totalGames,
-      totalVictories: this.totalVictories,
-      totalDraws: this.totalDraws,
-      totalLosses: this.totalLosses,
-      goalsFavor: this.goalsFavor,
-      goalsOwn: this.goalsOwn,
-      goalsBalance: this.goalsBalance,
-      efficiency: this.efficiency,
-    };
+  private homeTeamStats(matches?: Match[]): void {
+    if (matches) {
+      this.homeTeamPoints(matches);
+      this.goalsBalance = this.goalsFavor - this.goalsOwn;
+      this.efficiency = +((this.totalPoints / (this.totalGames * 3)) * 100).toFixed(2);
+    }
   }
 }
 

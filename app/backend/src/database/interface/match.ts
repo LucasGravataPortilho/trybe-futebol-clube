@@ -1,4 +1,4 @@
-interface Match {
+interface IMatch {
   id?: number;
   homeTeamId: number;
   homeTeamGoals: number;
@@ -7,4 +7,4 @@ interface Match {
   inProgress?: boolean;
 }
 
-export default Match;
+export default IMatch;
