@@ -1,3 +1,5 @@
+import Match from './interface/match';
+
 class LeaderBoard {
   private declare name: string;
   private declare totalPoints: number;
@@ -53,6 +55,14 @@ class LeaderBoard {
     this.goalsOwn += awayTeamGoals;
     this.totalPoints += 1;
     this.totalDraws += 1;
+  };
+
+  public homeTeamPoints = (matches: Match[]) => {
+    matches.forEach(({ homeTeamGoals, awayTeamGoals }) => {
+      if (homeTeamGoals > awayTeamGoals) this.homeWin(homeTeamGoals, awayTeamGoals);
+      if (homeTeamGoals < awayTeamGoals) this.homeLose(homeTeamGoals, awayTeamGoals);
+      if (homeTeamGoals === awayTeamGoals) this.homeTie(homeTeamGoals, awayTeamGoals);
+    });
   };
 }
 
