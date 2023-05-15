@@ -1,4 +1,4 @@
-interface LeaderBoard {
+interface ILeaderBoard {
   name: string;
   totalPoints: number;
   totalGames: number;
@@ -11,4 +11,4 @@ interface LeaderBoard {
   efficiency: number;
 }
 
-export default LeaderBoard;
+export default ILeaderBoard;

@@ -2,7 +2,18 @@ import { DataTypes, Model } from 'sequelize';
 import db from '.';
 import TeamsModel from './TeamModel';
 
-class MatchesModel extends Model {
+export interface MatchModelAttributes {
+  id: number;
+  homeTeamId: number;
+  homeTeamGoals: number;
+  awayTeamId: number;
+  awayTeamGoals: number;
+  inProgress: boolean;
+}
+
+export type CreationalMatchModelAttributes = Omit<MatchModelAttributes, 'id'>;
+
+class MatchesModel extends Model<MatchModelAttributes, CreationalMatchModelAttributes> {
   declare id: number;
   declare homeTeamId: number;
   declare homeTeamGoals: number;

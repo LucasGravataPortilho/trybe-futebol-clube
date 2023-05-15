@@ -1,9 +1,12 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
+// eslint-disable-next-line import/no-cycle
+import MatchesModel from './MatchModel';
 
 class TeamsModel extends Model {
   declare id: number;
   declare teamName: string;
+  declare homeTeam?: MatchesModel[];
 }
 
 TeamsModel.init({
