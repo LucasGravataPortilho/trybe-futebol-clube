@@ -58,8 +58,9 @@ class LeaderBoard {
   }
 
   private homeTeamStats(matches?: Match[]): void {
-    if (matches) {
-      this.homeTeamPoints(matches);
+    const getMatches = matches?.filter((match) => match.inProgress === false);
+    if (getMatches) {
+      this.homeTeamPoints(getMatches);
       this.goalsBalance = this.goalsFavor - this.goalsOwn;
       this.efficiency = +((this.totalPoints / (this.totalGames * 3)) * 100).toFixed(2);
     }
