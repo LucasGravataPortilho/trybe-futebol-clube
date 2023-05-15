@@ -2,14 +2,14 @@ import Match from './interface/match';
 
 class LeaderBoard {
   private name: string;
-  private totalPoints: number;
+  public totalPoints: number;
   private totalGames: number;
-  private totalVictories: number;
+  public totalVictories: number;
   private totalDraws: number;
   private totalLosses: number;
-  private goalsFavor: number;
-  private goalsOwn: number;
-  private goalsBalance: number;
+  public goalsFavor: number;
+  public goalsOwn: number;
+  public goalsBalance: number;
   private efficiency: number;
 
   constructor(name: string, matches?: Match[]) {

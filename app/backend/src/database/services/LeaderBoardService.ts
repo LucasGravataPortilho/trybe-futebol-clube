@@ -9,7 +9,11 @@ class LeaderBoardService extends LeaderBoard {
     });
 
     const leaderBoards = teams.map((team) => new LeaderBoard(team.teamName, team.homeTeam));
-    return leaderBoards;
+    return leaderBoards
+      .sort((a: LeaderBoard, b: LeaderBoard) => b.goalsFavor - a.goalsFavor)
+      .sort((a: LeaderBoard, b: LeaderBoard) => b.goalsBalance - a.goalsBalance)
+      .sort((a: LeaderBoard, b: LeaderBoard) => b.totalVictories - a.totalVictories)
+      .sort((a: LeaderBoard, b: LeaderBoard) => b.totalPoints - a.totalPoints);
   }
 }
 
