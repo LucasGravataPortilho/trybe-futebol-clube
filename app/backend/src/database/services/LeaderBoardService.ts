@@ -1,3 +1,4 @@
+import LeaderBoardAway from '../leaderBoardAwayUtils';
 import LeaderBoard from '../leaderBoardUtils';
 import MatchesModel from '../models/MatchModel';
 import TeamsModel from '../models/TeamModel';
@@ -14,6 +15,19 @@ class LeaderBoardService extends LeaderBoard {
       .sort((a: LeaderBoard, b: LeaderBoard) => b.goalsBalance - a.goalsBalance)
       .sort((a: LeaderBoard, b: LeaderBoard) => b.totalVictories - a.totalVictories)
       .sort((a: LeaderBoard, b: LeaderBoard) => b.totalPoints - a.totalPoints);
+  }
+
+  public static async getAwayLeaderBoard() {
+    const teams = await TeamsModel.findAll({
+      include: [{ model: MatchesModel, as: 'awayTeam' }],
+    });
+
+    const leaderBoards = teams.map((team) => new LeaderBoardAway(team.teamName, team.awayTeam));
+    return leaderBoards
+      .sort((a: LeaderBoardAway, b: LeaderBoardAway) => b.goalsFavor - a.goalsFavor)
+      .sort((a: LeaderBoardAway, b: LeaderBoardAway) => b.goalsBalance - a.goalsBalance)
+      .sort((a: LeaderBoardAway, b: LeaderBoardAway) => b.totalVictories - a.totalVictories)
+      .sort((a: LeaderBoardAway, b: LeaderBoardAway) => b.totalPoints - a.totalPoints);
   }
 }
 
